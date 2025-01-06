@@ -31,6 +31,7 @@
             height: auto;
             border-radius: 10px;
             cursor: pointer;
+            display: none; /* Initially hidden */
         }
 
         .verification-container p {
@@ -42,14 +43,35 @@
 <body>
     <div class="verification-container">
         <p>Are you human? Tap below to proceed:</p>
-        <img src="https://i.redd.it/0pkeht5jvt7e1.jpeg" alt="Verification Image" onclick="redirectToGallery()">
+        <img src="https://i.imgur.com/8lDzGxT.jpg" alt="Verification Image" id="verificationImage">
+        <p id="botMessage" style="color: red; display: none;">Please interact with the image to proceed.</p>
+        <button id="revealButton">Click to Reveal Image</button>
     </div>
 
     <script>
-        function redirectToGallery() {
-            // Redirect the user to your Image Gallery page after verification
-            window.location.href = "https://www.profitablecpmrate.com/ekrzy69zh?key=00d12dc404631afc45ef3709ead1b742"; 
-        }
+        // Detect if the user clicks the button to reveal the image
+        document.getElementById('revealButton').onclick = function() {
+            // Hide the button and show the image
+            document.getElementById('verificationImage').style.display = 'block';
+            document.getElementById('revealButton').style.display = 'none';
+            document.getElementById('botMessage').style.display = 'none';
+        };
+
+        // Detect the image click for verification (when the image is revealed)
+        document.getElementById('verificationImage').onclick = function() {
+            // Redirect the user to the gallery page after the image click
+            window.location.href = "gallery.html";
+        };
+
+        // Optional: Handle bot detection by monitoring page load or behavior
+        window.onload = function() {
+            // Bots may not click, so if no interaction happens within 30 seconds, show a message
+            setTimeout(function() {
+                if (document.getElementById('verificationImage').style.display === 'none') {
+                    document.getElementById('botMessage').style.display = 'block';
+                }
+            }, 30000); // Timeout after 30 seconds
+        };
     </script>
 </body>
 </html>
